@@ -1,7 +1,4 @@
 {
-  "functions": {
-    "api/index.js": {
-      "includeFiles": "node_modules/.prisma/**"
-    }
-  }
+  "buildCommand": "npx prisma generate && remix build",
+  "framework": "remix"
 }
