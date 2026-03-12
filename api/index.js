@@ -433,9 +433,18 @@ var import_react24 = require("react"), action2 = async ({ request }) => {
     status: "ok",
     msg: "Action executed"
   };
-}, loader2 = async () => await prisma.entry.findMany({
-  orderBy: { createdAt: "desc" }
-});
+}, loader2 = async () => {
+  try {
+    return await prisma.entry.findMany({
+      orderBy: { createdAt: "desc" }
+    });
+  } catch (error) {
+    throw console.error("LOADER ERROR:", error.message, error.stack), new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" }
+    });
+  }
+};
 function Index() {
   let entries = (0, import_react23.useLoaderData)(), { saveEntriesToState } = (0, import_react24.useContext)(EntriesContext), actionData = (0, import_react23.useActionData)();
   return (0, import_react24.useEffect)(() => {
@@ -460,7 +469,7 @@ function Index() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { version: "e6a4b660", entry: { module: "/build/entry.client-3RMC6TVC.js", imports: ["/build/_shared/chunk-LKFKQSN7.js", "/build/_shared/chunk-RVINGQAH.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-DE3OQ5AI.js", imports: ["/build/_shared/chunk-NZKKDZJD.js", "/build/_shared/chunk-YQ36V3FN.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/entry/$id": { id: "routes/entry/$id", parentId: "root", path: "entry/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/entry/$id-SY66O4SG.js", imports: void 0, hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-VJIGZNOD.js", imports: void 0, hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, url: "/build/manifest-E6A4B660.js" };
+var assets_manifest_default = { version: "1a1539f0", entry: { module: "/build/entry.client-3RMC6TVC.js", imports: ["/build/_shared/chunk-LKFKQSN7.js", "/build/_shared/chunk-RVINGQAH.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-LTXPUNTJ.js", imports: ["/build/_shared/chunk-NZKKDZJD.js", "/build/_shared/chunk-CJSF7DWL.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/entry/$id": { id: "routes/entry/$id", parentId: "root", path: "entry/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/entry/$id-SFSDTX43.js", imports: void 0, hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-3Z5ZCKRC.js", imports: void 0, hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, url: "/build/manifest-1A1539F0.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var entry = { module: entry_server_exports }, routes = {
