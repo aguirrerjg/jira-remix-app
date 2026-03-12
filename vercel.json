@@ -1,8 +1,3 @@
 {
-  "framework": "remix",
-  "functions": {
-    "api/**": {
-      "runtime": "nodejs18.x"
-    }
-  }
+  "framework": "remix"
 }
