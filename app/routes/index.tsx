@@ -43,10 +43,18 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export const loader: LoaderFunction = async () => {
-  const entries = await prisma.entry.findMany({
-    orderBy: { createdAt: 'desc' },
-  });
-  return entries;
+  try {
+    const entries = await prisma.entry.findMany({
+      orderBy: { createdAt: 'desc' },
+    });
+    return entries;
+  } catch (error: any) {
+    console.error('LOADER ERROR:', error.message, error.stack);
+    throw new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
 };
 
 export default function Index() {
